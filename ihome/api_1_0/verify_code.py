@@ -1,23 +1,20 @@
 # -*- coding: utf-8 -*-
 
 #所有关于验证码的操作都在这里
+import logging
 import random
 
-import constants
 from flask import jsonify
 from flask import make_response
 from flask import request
 
-from ihome.models import User
+from ihome import redis_store,constants
+from ihome.constants import IMAGE_CODE_REDIS_EXPIRE
 from ihome.libs.yuntongxun.sms import CCP
-from ihome.utils.constans import IMAGE_CODE_REDIS_EXPIRE
-
-from ihome import redis_store
-from . import api
+from ihome.models import User
 from ihome.utils.captcha.captcha import captcha
-# from ihome import redis_store, constants
-import logging
 from ihome.utils.response_code import RET
+from . import api
 
 # 生成验证码
 @api.route('/image_codes/<image_code_id>')
