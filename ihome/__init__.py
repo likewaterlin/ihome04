@@ -39,7 +39,7 @@ def create_app(config_name):
     app.url_map.converters['re'] = RegexConverter
 
     db.init_app(app)
-    csrf.init_app(app)
+    # csrf.init_app(app)
     global redis_store
     redis_store = redis.StrictRedis(port=Config.REDIS_PORT, host=Config.REDIS_HOST)
 
