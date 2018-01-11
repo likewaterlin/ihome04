@@ -28,16 +28,21 @@ class User(BaseModel, db.Model):
     houses = db.relationship("House", backref="user")  # 用户发布的房屋
     orders = db.relationship("Order", backref="user")  # 用户下的订单
 
+    # 希望再提供一个password属性, 能够直接进行密码的设置
+    # @property: 将下面的函数提升为属性(getter)
     @property
     def password(self):
         raise AttributeError('不允许访问密码')
 
     @password.setter
-    def password(self,value):
+    def password(self, value):
+        # 在属性的setter方法中进行密码加密处理
         self.password_hash = generate_password_hash(value)
 
-    def check_password(self,value):
-        return check_password_hash(self.password_hash,value)
+    # 在User下方增加以下函数
+    def check_password(self, value):
+        """检查用户密码， value 是用户填写密码"""
+        return check_password_hash(self.password_hash, value)
 
 
 
